@@ -1,0 +1,130 @@
+/* LoginPage.css */
+body {
+  font-family: 'Cinzel', serif; /* Set global font family */
+  margin: 0; /* Remove default margin */
+  color: #fff; /* Default text color */
+}
+
+.login-page {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 350px;
+  padding: 20px;
+  background-color: transparent;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #D4AF37; /* Gold color for Game of Thrones theme */
+}
+
+.username-input, .password-input {
+  width: 100%;
+  max-width: 250px;
+  padding: 12px; /* Adjust padding */
+  margin: 10px 0;
+  font-size: 18px; /* Increase font size */
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: 'Cinzel', serif; /* Apply font family to input text */
+  color: #fff; /* Input text color */
+  background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+}
+
+/* Placeholder styling */
+.username-input::placeholder, 
+.password-input::placeholder {
+  font-family: 'Cinzel', serif; /* Apply font family to placeholder text */
+  font-size: 18px; /* Match the font size with the input text */
+  color: rgba(255, 255, 255, 0.5); /* Lighter color for the placeholder text */
+}
+
+.avatar-button, .login-button {
+  width: 100%;
+  max-width: 200px;
+  padding: 12px; /* Adjust padding */
+  margin: 10px 0;
+  font-size: 18px; /* Increase font size */
+  border: none;
+  border-radius: 5px;
+  font-family: 'Cinzel', serif; /* Apply font family to buttons */
+  color: white; /* Button text color */
+}
+
+.avatar-button {
+  background-color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.avatar-button:hover {
+  background-color: #555;
+}
+
+.login-button {
+  border: 1px solid #555; /* Dark border */
+  background-color: #D4AF37; /* Gold base color */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), /* Highlight */
+              inset 0 -1px 3px rgba(0, 0, 0, 0.3), /* Depth */
+              0 3px 6px rgba(0, 0, 0, 0.5), /* Outer shadow for a worn look */
+              1px 1px 4px rgba(0, 0, 0, 0.6); /* Rough shadow edges */
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.login-button:hover {
+  background-color: #C4A535;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+              inset 0 -1px 3px rgba(0, 0, 0, 0.4),
+              0 6px 10px rgba(0, 0, 0, 0.8),
+              1px 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .username-input, .password-input, .avatar-button, .login-button {
+    font-size: 16px; /* Slightly larger text for mobile */
+    padding: 10px;   /* Adjust padding for mobile */
+  }
+
+  .buttons {
+    gap: 8px;
+  }
+}
