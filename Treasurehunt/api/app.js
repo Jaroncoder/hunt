@@ -3,7 +3,6 @@ const cors = require('cors');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-app.use(cors());
 app.use(express.json()); // Middleware for parsing JSON request bodies
 
 // MongoDB connection URI
@@ -22,6 +21,14 @@ client.connect()
     .catch((err) => {
         console.error('MongoDB connection error:', err);
     });
+
+// CORS Configuration
+const allowedOrigins = ['https://hunt-frontend-sage.vercel.app/']; // Replace with your actual frontend URL
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, // If your frontend needs to send cookies/auth headers
+}));
 
 // Login route
 app.post('/login', async (req, res) => {
