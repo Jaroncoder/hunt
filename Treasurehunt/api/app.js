@@ -27,7 +27,7 @@ client.connect()
 const allowedOrigins = ['https://hunt-np1h.vercel.app'];
 app.use(cors({
     origin: allowedOrigins,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ["GET", "POST"],
     credentials: true,
 }));
 
