@@ -23,7 +23,7 @@ client.connect()
     });
 
 // CORS Configuration
-const allowedOrigins = ['https://hunt-frontend-sage.vercel.app/']; // Replace with your actual frontend URL
+const allowedOrigins = ['https://hunt-np1h.vercel.app']; // Replace with your actual frontend URL
 app.use(cors({
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
