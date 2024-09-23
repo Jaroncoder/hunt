@@ -1,7 +1,7 @@
 // src/App.js
 
 import React from 'react';
-import LoginPage from './LoginPage'; // Change this line
+import LoginPage from './components/LoginPage'; // Change this line
 
 function App() {
     return (

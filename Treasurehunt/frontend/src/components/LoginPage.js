@@ -2,71 +2,63 @@ import React, { useState } from 'react';
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: email, password }),
+            });
 
-    const requestBody = {
-      email: email,
-      password: password
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            setMessage(data.message);
+        } catch (error) {
+            console.error('Login error:', error);
+            setMessage('Login failed. Please try again.');
+        }
     };
 
-    try {
-      const response = await fetch('http://localhost:3000/login', {  // Adjust this URL as per your hosted API
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      const data = await response.json();
-
-      if (response.status === 200) {
-        setSuccessMessage(data.message);
-        setErrorMessage('');
-      } else {
-        setErrorMessage(data.message);
-        setSuccessMessage('');
-      }
-    } catch (error) {
-      setErrorMessage('An error occurred while logging in.');
-      setSuccessMessage('');
-    }
-  };
-
-  return (
-    <div className="login-page">
-      <form onSubmit={handleLogin}>
-        <h2>Login</h2>
-        {errorMessage && <p className="error">{errorMessage}</p>}
-        {successMessage && <p className="success">{successMessage}</p>}
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    return (
+        <div className="login-page">
+            <video className="background-video" autoPlay loop muted>
+                <source src="/videos/Login_Vid.mp4" type="video/mp4" />
+            </video>
+            <div className="container">
+                <h1>Login</h1>
+                <form onSubmit={handleLogin}>
+                    <input
+                        className="username-input"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                        required
+                    />
+                    <input
+                        className="password-input"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                    />
+                    <button type="submit" className="login-button">Login</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
         </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default LoginPage;
