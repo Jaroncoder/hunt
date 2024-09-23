@@ -33,6 +33,8 @@ app.use(cors({
 // Login route
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
+     // Log the received data
+    console.log('Received login request:', { username, password });
 
     try {
         // Find the user by username (email)
