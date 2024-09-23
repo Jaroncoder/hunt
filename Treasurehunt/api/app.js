@@ -1,12 +1,13 @@
+require('dotenv').config(); // Load environment variables from .env file
+
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-app.use(express.json()); // Middleware for parsing JSON request bodies
+app.use(express.json());
 
-// MongoDB connection URI
-const uri = 'mongodb+srv://sample_user:sample123@cluster0.xig4s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const uri = process.env.MONGO_URI; // Use the MONGO_URI from .env
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let credentialsCollection;
@@ -15,49 +16,24 @@ let credentialsCollection;
 client.connect()
     .then(() => {
         console.log('MongoDB connected successfully');
-        const db = client.db('user_database'); // Your database name
-        credentialsCollection = db.collection('credentials'); // Your credentials collection
+        const db = client.db('user_database');
+        credentialsCollection = db.collection('credentials');
     })
     .catch((err) => {
         console.error('MongoDB connection error:', err);
     });
 
 // CORS Configuration
-const allowedOrigins = ['https://hunt-np1h.vercel.app']; // Replace with your actual frontend URL
+const allowedOrigins = ['https://hunt-np1h.vercel.app'];
 app.use(cors({
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true, // If your frontend needs to send cookies/auth headers
+    credentials: true,
 }));
 
-// Login route
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    
-    // Log the received data
-    console.log('Received login request:', { username, password });
+// Your login route and other code here...
 
-    try {
-        // Find the user by username (email)
-        const user = await credentialsCollection.findOne({ username });
-
-        if (user) {
-            // Compare stored password with the one provided by the user
-            if (user.password === password) {
-                return res.status(200).json({ message: 'Login successful!' });
-            } 
-        }
-        
-        // If user not found or password doesn't match
-        return res.status(401).json({ message: 'Invalid email or password' });
-    } catch (error) {
-        console.error('Login error:', error);
-        return res.status(500).json({ message: 'Server error' });
-    }
-});
-
-// Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; // Use PORT from .env
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
