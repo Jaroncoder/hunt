@@ -33,26 +33,26 @@ app.use(cors({
 // Login route
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-     // Log the received data
+    
+    // Log the received data
     console.log('Received login request:', { username, password });
 
     try {
         // Find the user by username (email)
-        const user = await credentialsCollection.findOne({ username: username });
+        const user = await credentialsCollection.findOne({ username });
 
         if (user) {
             // Compare stored password with the one provided by the user
             if (user.password === password) {
-                res.status(200).json({ message: 'Login successful!' });
-            } else {
-                res.status(401).json({ message: 'Invalid email or password' });
-            }
-        } else {
-            res.status(401).json({ message: 'Invalid email or password' });
+                return res.status(200).json({ message: 'Login successful!' });
+            } 
         }
+        
+        // If user not found or password doesn't match
+        return res.status(401).json({ message: 'Invalid email or password' });
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: 'Server error' });
     }
 });
 
