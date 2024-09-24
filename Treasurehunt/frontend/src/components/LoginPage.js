@@ -8,26 +8,25 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`https://hunt-two.vercel.app/login`, {
+    const response = await fetch(`https://hunt-two.vercel.app/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username: email, password }),
-      });
+    });
 
-      const data = await response.json();
+    const data = await response.json();
       
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+    if (!response.ok) {
+        console.log(response);
+        console.log(data);
+        console.error('Login error:', error);
+        console.log('Server response:', data ?? response ?? "null"); // Added line to log response
+        setMessage(data?.message || 'Login failed. Please try again.'); // Updated message
+    }
 
-      setMessage(data.message);
-    } catch (error) {
-      console.error('Login error:', error);
-      console.log('Server response:', data ?? response ?? "null"); // Added line to log response
-      setMessage(data?.message || 'Login failed. Please try again.'); // Updated message
+    setMessage(data.message);
     }
   };
 
