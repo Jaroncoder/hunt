@@ -17,16 +17,17 @@ const LoginPage = () => {
         body: JSON.stringify({ username: email, password }),
       });
 
+      const data = await response.json();
+      
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json();
       setMessage(data.message);
     } catch (error) {
       console.error('Login error:', error);
-      console.log('Server response:', data); // Added line to log response
-      setMessage(data.message || 'Login failed. Please try again.'); // Updated message
+      console.log('Server response:', data ?? response ?? "null"); // Added line to log response
+      setMessage(data?.message || 'Login failed. Please try again.'); // Updated message
     }
   };
 
