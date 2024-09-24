@@ -9,7 +9,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://hunt-np1h.vercel.app/login`, {
+      const response = await fetch(`https://hunt-two.vercel.app/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
